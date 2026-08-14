@@ -1,0 +1,17 @@
+{
+  "fixed": {
+    "file_version": "0.1.0.0"
+  },
+  "info": {
+    "0000": {
+      "CompanyName": "ChiHeng",
+      "FileDescription": "持衡 ChiHeng 本地优先的投资组合与行情分析",
+      "FileVersion": "0.1.0",
+      "InternalName": "ChiHeng",
+      "LegalCopyright": "",
+      "OriginalFilename": "ChiHeng.exe",
+      "ProductName": "持衡 ChiHeng",
+      "ProductVersion": "0.1.0"
+    }
+  }
+}

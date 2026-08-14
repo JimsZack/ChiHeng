@@ -1,0 +1,56 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "gofmt -w $(git diff --name-only -- '*.go') && go vet ./internal/...",
+            "description": "Go 代码编辑后自动 gofmt + go vet"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd frontend && pnpm exec biome check --write $(git diff --name-only -- '*.ts' '*.tsx')",
+            "description": "前端代码编辑后自动 Biome 格式化 + lint"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd frontend && pnpm typecheck",
+            "description": "前端编辑后自动 TypeScript 类型检查"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'LOCKFILE'",
+            "description": "阻止直接编辑锁定文件（pnpm-lock.yaml / go.sum），应通过包管理器修改"
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(gofmt:*",
+      "Bash(cd frontend && pnpm typecheck:*)",
+      "Bash(pnpm typecheck:*)",
+      "Bash(pnpm test:*)"
+    ]
+  }
+}
