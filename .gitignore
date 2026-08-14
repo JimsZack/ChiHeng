@@ -1,0 +1,32 @@
+# Database (Sensitive Data)
+*.db
+*.sqlite3
+*.db-journal
+*.chiheng-backup
+
+# IDE
+.vscode/
+.idea/
+
+# Logs and temp
+*.log
+tmp*/
+.tmp-brand/
+.playwright-mcp/
+
+# Build outputs
+build/bin/
+frontend/dist/
+frontend/*.tsbuildinfo
+frontend/wailsjs/
+
+# Node dependencies
+node_modules/
+frontend/node_modules/
+
+# Agent tooling
+.agents/
+.claude/
+.omo/
+.codegraph/
+skills-lock.json
