@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">ChiHeng application icon</title>
+  <desc id="desc">A balanced central axis with mirrored ledger bars on a violet field.</desc>
+  <defs>
+    <linearGradient id="field" x1="124" y1="88" x2="884" y2="944" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7668E8"/><stop offset="0.52" stop-color="#5B4BD1"/><stop offset="1" stop-color="#4938B8"/>
+    </linearGradient>
+    <linearGradient id="sheen" x1="250" y1="180" x2="716" y2="764" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".28"/><stop offset=".58" stop-color="#FFFFFF" stop-opacity=".06"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="shadow" x="80" y="94" width="864" height="870" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="28" stdDeviation="32" flood-color="#20165C" flood-opacity=".26"/>
+    </filter>
+  </defs>
+  <rect x="72" y="72" width="880" height="880" rx="224" fill="url(#field)" filter="url(#shadow)"/>
+  <path d="M296 680h160V344H296a56 56 0 0 0-56 56v224a56 56 0 0 0 56 56Z" fill="#FFFFFF" fill-opacity=".96"/>
+  <path d="M728 344H568v336h160a56 56 0 0 0 56-56V400a56 56 0 0 0-56-56Z" fill="#FFFFFF" fill-opacity=".82"/>
+  <rect x="480" y="240" width="64" height="544" rx="32" fill="#FFFFFF"/>
+  <rect x="296" y="440" width="160" height="48" rx="24" fill="#5B4BD1" fill-opacity=".72"/>
+  <rect x="296" y="536" width="160" height="48" rx="24" fill="#5B4BD1" fill-opacity=".72"/>
+  <rect x="568" y="440" width="160" height="48" rx="24" fill="#4938B8" fill-opacity=".72"/>
+  <rect x="568" y="536" width="160" height="48" rx="24" fill="#4938B8" fill-opacity=".72"/>
+  <path d="M128 296C208 144 376 96 536 96c144 0 268 48 356 148-220-24-438 20-624 132-78 47-134 22-140-80Z" fill="url(#sheen)"/>
+</svg>

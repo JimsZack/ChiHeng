@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">ChiHeng balanced ledger mark</title><desc id="desc">A central measuring axis and two mirrored ledger panels.</desc>
+  <path fill="#5B4BD1" d="M52 172h52V84H52a20 20 0 0 0-20 20v48a20 20 0 0 0 20 20Zm152-88h-52v88h52a20 20 0 0 0 20-20v-48a20 20 0 0 0-20-20Z"/>
+  <rect x="116" y="48" width="24" height="160" rx="12" fill="#4938B8"/>
+  <path d="M52 112h52M52 144h52M152 112h52M152 144h52" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round"/>
+</svg>

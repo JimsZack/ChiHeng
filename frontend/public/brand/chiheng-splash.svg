@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">ChiHeng splash screen</title><desc id="desc">ChiHeng balanced ledger mark, product name, and tagline on a quiet cool-white field.</desc>
+  <defs><linearGradient id="bg" x1="120" y1="48" x2="1080" y2="680" gradientUnits="userSpaceOnUse"><stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#F1F0FA"/></linearGradient></defs>
+  <rect width="1200" height="720" fill="url(#bg)"/>
+  <g transform="translate(472 142)"><path fill="#5B4BD1" d="M52 172h52V84H52a20 20 0 0 0-20 20v48a20 20 0 0 0 20 20Zm152-88h-52v88h52a20 20 0 0 0 20-20v-48a20 20 0 0 0-20-20Z"/><rect x="116" y="48" width="24" height="160" rx="12" fill="#4938B8"/><path d="M52 112h52M52 144h52M152 112h52M152 144h52" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round"/></g>
+  <text x="600" y="446" text-anchor="middle" fill="#171821" font-family="Inter,Segoe UI,Noto Sans SC,Microsoft YaHei UI,sans-serif" font-size="54" font-weight="650" letter-spacing="2">持衡</text>
+  <text x="600" y="492" text-anchor="middle" fill="#626577" font-family="Inter,Segoe UI,sans-serif" font-size="18" font-weight="550" letter-spacing="4">CHIHENG</text>
+  <text x="600" y="568" text-anchor="middle" fill="#626577" font-family="Inter,Segoe UI,Noto Sans SC,Microsoft YaHei UI,sans-serif" font-size="20">看清持仓，理性权衡。</text>
+</svg>
