@@ -1,19 +1,19 @@
 import { MagnifyingGlass, PushPin } from "@phosphor-icons/react";
 import { useState } from "react";
 import { MiniChart, PageHeader, PreviewNotice, StateSwitch } from "../components/ui";
-import { addUserIndex } from "../services/api";
+import { addUserIndex, getQuote } from "../services/api";
+import type { Instrument } from "../shared/types";
 import { useAppStore, useMarketStore } from "../stores/app";
 
 export const StocksPage = () => {
   const { search } = useMarketStore();
   const { wailsMode } = useAppStore();
   const [keyword, setKeyword] = useState("");
-  const [results, setResults] = useState<
-    ReturnType<typeof search> extends Promise<infer T> ? T : never
-  >([]);
+  const [results, setResults] = useState<Instrument[]>([]);
   const [searching, setSearching] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [selected, setSelected] = useState<{
+    id: string;
     name: string;
     code: string;
     price: string;
@@ -21,24 +21,41 @@ export const StocksPage = () => {
   } | null>(null);
   const [pinned, setPinned] = useState(false);
 
+  const selectInstrument = async (instrument: Instrument) => {
+    setSelected({
+      id: instrument.id,
+      name: instrument.name,
+      code: instrument.code,
+      price: "--",
+      change: "--",
+    });
+    setPinned(false);
+    try {
+      const quote = await getQuote(instrument.id);
+      setSelected({
+        id: quote.instrument.id,
+        name: quote.instrument.name,
+        code: quote.instrument.code,
+        price: quote.price,
+        change: quote.change,
+      });
+    } catch {
+      // 报价获取失败时保留占位符
+    }
+  };
+
   const doSearch = async () => {
     if (!keyword.trim()) {
       return;
     }
     setSearching(true);
     setError(null);
-    setPinned(false);
     try {
       const found = await search(keyword.trim(), "stock");
       setResults(found);
       const first = found[0];
       if (first) {
-        setSelected({
-          name: first.name,
-          code: first.code,
-          price: first.price,
-          change: first.change,
-        });
+        await selectInstrument(first);
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "搜索失败");
@@ -52,7 +69,7 @@ export const StocksPage = () => {
       return;
     }
     try {
-      await addUserIndex(selected.code);
+      await addUserIndex(selected.id);
       setPinned(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : "添加自选失败");
@@ -168,25 +185,13 @@ export const StocksPage = () => {
                     border: "none",
                     cursor: "pointer",
                   }}
-                  onClick={() =>
-                    setSelected({
-                      name: item.name,
-                      code: item.code,
-                      price: item.price,
-                      change: item.change,
-                    })
-                  }
+                  onClick={() => void selectInstrument(item)}
                 >
                   <span>
                     <strong>{item.name}</strong>
                     <div className="muted">{item.code}</div>
                   </span>
-                  <span>
-                    <div>{item.price}</div>
-                    <div className={item.change.startsWith("+") ? "positive" : "negative"}>
-                      {item.change}
-                    </div>
-                  </span>
+                  <span className="muted">查看行情</span>
                 </button>
               ))}
             </div>

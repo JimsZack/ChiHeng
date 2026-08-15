@@ -65,7 +65,7 @@ function isEmoji(codepoint) {
 
 function validateTextAssets() {
   const roots = [
-    join(root, "DESIGN.md"),
+    join(root, "docs/DESIGN.md"),
     join(root, "assets/brand"),
     join(root, "build"),
     join(root, "frontend/public/brand"),

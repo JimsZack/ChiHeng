@@ -37,8 +37,8 @@ import (
 
 	"golang.org/x/text/encoding/simplifiedchinese"
 
-	"github.com/chiheng-app/chiheng/internal/adapter"
-	"github.com/chiheng-app/chiheng/internal/domain"
+	"github.com/JimsZack/ChiHeng/internal/adapter"
+	"github.com/JimsZack/ChiHeng/internal/domain"
 )
 
 const (

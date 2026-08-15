@@ -28,7 +28,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/chiheng-app/chiheng/internal/adapter"
+	"github.com/JimsZack/ChiHeng/internal/adapter"
 )
 
 // microScale 金额微元换算系数（1 元 = 1e6 微元）。

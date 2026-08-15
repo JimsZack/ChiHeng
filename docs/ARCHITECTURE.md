@@ -164,7 +164,7 @@ func main() {
 - `build/` 补齐：`darwin/Info.plist` + `Info.dev.plist`（CFBundleName=ChiHeng、版本）、`windows/info.json`（名字 ChiHeng、图标）。
 - `scripts/build-all.sh`（现有）：quality-gate → go test → vet → 前端 check → `wails build -clean`。
 - 三平台产物：`build/bin/ChiHeng.exe` / `ChiHeng.app` / `chiheng`；文档按 `docs/BUILDING.md` 规范（签名/公证/SHA-256）。
-- 命名统一：模块 `github.com/chiheng-app/chiheng`、包名 `chiheng`、二进制 `ChiHeng`、应用名「持衡 ChiHeng」，清除 `com.followplane` 残留。
+- 命名统一：模块 `github.com/JimsZack/ChiHeng`、包名 `chiheng`、二进制 `ChiHeng`、应用名「持衡 ChiHeng」，清除 `com.followplane` 残留。
 
 ## 14. 关键决策记录
 
@@ -172,7 +172,7 @@ func main() {
 |---|---|---|
 | 前端框架 | 保持 React 19 + TS + Vite | 已有 7 页完整 UI 与设计系统，重写 Vue 无收益且违反"复用成熟逻辑" |
 | 数据库 | modernc.org/sqlite（现有） | 纯 Go、无 CGO，跨平台打包简单 |
-| UI 组件 | 手写 CSS + Phosphor 图标（现状） | DESIGN.md 已定义完整 Design System，组件化封装即可 |
+| UI 组件 | 手写 CSS + Phosphor 图标（现状） | docs/DESIGN.md 已定义完整 Design System，组件化封装即可 |
 | 图表 | ECharts（已装未用） | 替代手写 MiniChart，满足 K 线/分时/面积图专业需求 |
 | 密钥存储 | OS keyring + 加密文件回退 | 修复明文存储缺陷 |
 | 外部行情 | Go 原生 HTTP 适配器（sina/eastmoney/fundgz） | 原生实现，避免进程内嵌外部运行时 |

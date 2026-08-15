@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/chiheng-app/chiheng/internal/store"
+	"github.com/JimsZack/ChiHeng/internal/store"
 )
 
 func TestSettings_whenDefaults(t *testing.T) {

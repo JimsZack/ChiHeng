@@ -5,8 +5,8 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/chiheng-app/chiheng/internal/domain"
-	"github.com/chiheng-app/chiheng/internal/schema"
+	"github.com/JimsZack/ChiHeng/internal/domain"
+	"github.com/JimsZack/ChiHeng/internal/schema"
 )
 
 func openStore(t *testing.T) *Store {

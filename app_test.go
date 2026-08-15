@@ -4,10 +4,10 @@ import (
 	"context"
 	"testing"
 
-	"github.com/chiheng-app/chiheng/internal/bindings"
-	"github.com/chiheng-app/chiheng/internal/schema"
-	"github.com/chiheng-app/chiheng/internal/service"
-	"github.com/chiheng-app/chiheng/internal/store"
+	"github.com/JimsZack/ChiHeng/internal/bindings"
+	"github.com/JimsZack/ChiHeng/internal/schema"
+	"github.com/JimsZack/ChiHeng/internal/service"
+	"github.com/JimsZack/ChiHeng/internal/store"
 )
 
 // newTestApp 组装带临时数据库与密钥存储的 App，并完成启动/退出生命周期。

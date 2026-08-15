@@ -10,7 +10,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/chiheng-app/chiheng/internal/store"
+	"github.com/JimsZack/ChiHeng/internal/store"
 )
 
 // Settings 偏好与 AI 配置域。

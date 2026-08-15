@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/chiheng-app/chiheng/internal/domain"
-	"github.com/chiheng-app/chiheng/internal/store"
+	"github.com/JimsZack/ChiHeng/internal/domain"
+	"github.com/JimsZack/ChiHeng/internal/store"
 )
 
 // Investment 定投计划域：计划 CRUD、回测、执行账本。

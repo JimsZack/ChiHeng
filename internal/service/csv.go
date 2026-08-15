@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/chiheng-app/chiheng/internal/domain"
+	"github.com/JimsZack/ChiHeng/internal/domain"
 )
 
 // 持仓 CSV 列顺序（导出与导入共用同一契约，保证往返一致）。

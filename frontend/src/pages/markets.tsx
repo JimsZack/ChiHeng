@@ -1,14 +1,14 @@
 import { PushPin } from "@phosphor-icons/react";
 import { useCallback, useEffect, useState } from "react";
 import { MiniChart, PageHeader, PreviewNotice, StateSwitch } from "../components/ui";
+import { getQuote } from "../services/api";
+import type { Instrument } from "../shared/types";
 import { useAppStore, useMarketStore } from "../stores/app";
 
 export const MarketsPage = () => {
   const { search } = useMarketStore();
   const { wailsMode } = useAppStore();
-  const [results, setResults] = useState<
-    { id: string; name: string; code: string; price: string; change: string }[]
-  >([]);
+  const [results, setResults] = useState<Instrument[]>([]);
   const [state, setState] = useState<"loading" | "ready" | "empty" | "error">("loading");
   const [selected, setSelected] = useState<{
     name: string;
@@ -17,6 +17,21 @@ export const MarketsPage = () => {
     change: string;
   } | null>(null);
 
+  const selectInstrument = async (instrument: Instrument) => {
+    setSelected({ name: instrument.name, code: instrument.code, price: "--", change: "--" });
+    try {
+      const quote = await getQuote(instrument.id);
+      setSelected({
+        name: quote.instrument.name,
+        code: quote.instrument.code,
+        price: quote.price,
+        change: quote.change,
+      });
+    } catch {
+      // 报价获取失败时保留占位符
+    }
+  };
+
   const load = useCallback(async () => {
     setState("loading");
     try {
@@ -24,12 +39,7 @@ export const MarketsPage = () => {
       setResults(found);
       setState(found.length > 0 ? "ready" : "empty");
       if (found[0]) {
-        setSelected({
-          name: found[0].name,
-          code: found[0].code,
-          price: found[0].price,
-          change: found[0].change,
-        });
+        await selectInstrument(found[0]);
       }
     } catch {
       setState("error");
@@ -61,9 +71,7 @@ export const MarketsPage = () => {
               className="card list-item"
               key={i.id}
               style={{ color: "inherit", textAlign: "left", cursor: "pointer" }}
-              onClick={() =>
-                setSelected({ name: i.name, code: i.code, price: i.price, change: i.change })
-              }
+              onClick={() => void selectInstrument(i)}
             >
               <div>
                 <span className="badge">forex</span>
@@ -71,8 +79,16 @@ export const MarketsPage = () => {
                 <div className="muted">{i.code}</div>
               </div>
               <div className="quote">
-                <strong>{i.price}</strong>
-                <div className={i.change.startsWith("+") ? "positive" : "negative"}>{i.change}</div>
+                <strong>{selected && selected.code === i.code ? selected.price : "--"}</strong>
+                <div
+                  className={
+                    selected && selected.code === i.code && selected.change.startsWith("+")
+                      ? "positive"
+                      : "negative"
+                  }
+                >
+                  {selected && selected.code === i.code ? selected.change : "--"}
+                </div>
               </div>
             </button>
           ))}

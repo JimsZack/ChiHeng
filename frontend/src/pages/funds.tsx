@@ -1,7 +1,8 @@
 import { Brain, MagnifyingGlass, Plus } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { MiniChart, PageHeader, PreviewNotice, StateSwitch } from "../components/ui";
-import { getSearchHistory } from "../services/api";
+import { getQuote, getSearchHistory } from "../services/api";
+import type { Instrument } from "../shared/types";
 import { useAppStore, useHoldingsStore, useMarketStore } from "../stores/app";
 
 export const FundsPage = () => {
@@ -9,9 +10,7 @@ export const FundsPage = () => {
   const { add } = useHoldingsStore();
   const { wailsMode } = useAppStore();
   const [keyword, setKeyword] = useState("");
-  const [results, setResults] = useState<
-    { id: string; name: string; code: string; price: string; change: string }[]
-  >([]);
+  const [results, setResults] = useState<Instrument[]>([]);
   const [searching, setSearching] = useState(false);
   const [history, setHistory] = useState<string[]>([]);
   const [selected, setSelected] = useState<{
@@ -21,6 +20,21 @@ export const FundsPage = () => {
     change: string;
   } | null>(null);
   const [amount, setAmount] = useState("1000.00");
+
+  const selectInstrument = async (instrument: Instrument) => {
+    setSelected({ name: instrument.name, code: instrument.code, price: "--", change: "--" });
+    try {
+      const quote = await getQuote(instrument.id);
+      setSelected({
+        name: quote.instrument.name,
+        code: quote.instrument.code,
+        price: quote.price,
+        change: quote.change,
+      });
+    } catch {
+      // 报价获取失败时保留占位符，不阻塞搜索流程
+    }
+  };
 
   useEffect(() => {
     void (async () => {
@@ -40,12 +54,7 @@ export const FundsPage = () => {
       setResults(found);
       const first = found[0];
       if (first) {
-        setSelected({
-          name: first.name,
-          code: first.code,
-          price: first.price,
-          change: first.change,
-        });
+        await selectInstrument(first);
       }
       // 更新搜索历史（去重置顶）
       setHistory((prev) => [query, ...prev.filter((h) => h !== query)].slice(0, 10));
@@ -222,25 +231,13 @@ export const FundsPage = () => {
                 border: "none",
                 cursor: "pointer",
               }}
-              onClick={() =>
-                setSelected({
-                  name: item.name,
-                  code: item.code,
-                  price: item.price,
-                  change: item.change,
-                })
-              }
+              onClick={() => void selectInstrument(item)}
             >
               <span>
                 <strong>{item.name}</strong>
                 <div className="muted">{item.code}</div>
               </span>
-              <span>
-                <div>{item.price}</div>
-                <div className={item.change.startsWith("+") ? "positive" : "negative"}>
-                  {item.change}
-                </div>
-              </span>
+              <span className="muted">查询详情</span>
             </button>
           ))}
         </div>

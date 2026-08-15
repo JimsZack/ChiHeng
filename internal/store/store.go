@@ -11,7 +11,7 @@ import (
 
 	_ "modernc.org/sqlite"
 
-	"github.com/chiheng-app/chiheng/internal/domain"
+	"github.com/JimsZack/ChiHeng/internal/domain"
 )
 
 var ErrConflict = errors.New("version conflict")

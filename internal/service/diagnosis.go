@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/chiheng-app/chiheng/internal/domain"
+	"github.com/JimsZack/ChiHeng/internal/domain"
 )
 
 // Diagnosis 基金诊断域：本地量化评分 + 规则报告 + 可选 AI 深度分析。

@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/chiheng-app/chiheng/internal/service"
+	"github.com/JimsZack/ChiHeng/internal/service"
 )
 
 // Runner 执行到期定投计划（由 app 层注入，避免 scheduler 依赖具体服务实现细节）。

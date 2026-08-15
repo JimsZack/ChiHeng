@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chiheng-app/chiheng/internal/domain"
+	"github.com/JimsZack/ChiHeng/internal/domain"
 )
 
 func TestExportHoldingsCSV_whenEmpty(t *testing.T) {

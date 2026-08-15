@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import * as api from "../services/api";
-import type { Holding, Instrument, LoadState, NewsItem, Plan } from "../shared/types";
+import type { Holding, Instrument, LoadState, NewsItem, Plan, Quote } from "../shared/types";
 
 // ---- 持仓 store ----
 
@@ -107,7 +107,7 @@ export const usePlansStore = create<PlansState>((set) => ({
 
 type MarketState = {
   state: LoadState;
-  indices: Instrument[];
+  indices: Quote[];
   news: NewsItem[];
   error: string | null;
   load: () => Promise<void>;

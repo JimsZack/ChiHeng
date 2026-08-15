@@ -1,7 +1,7 @@
 // API 层：统一访问 Go 后端 Bindings，非 Wails 环境回退到预览数据。
 // Wails v2 生成的绑定形如 window.go.main.App.<Method>(args...)，返回 Promise。
 
-import type { Holding, Instrument, LoadState, Metric, NewsItem, Plan } from "../shared/types";
+import type { Holding, Instrument, LoadState, Metric, NewsItem, Plan, Quote } from "../shared/types";
 import { previewData } from "./preview-data";
 
 type WailsApp = {
@@ -169,14 +169,14 @@ export const searchInstruments = (keyword: string, assetType = ""): Promise<Inst
     { keyword, assetType, limit: 20 },
   ]);
 
-export const getGlobalIndices = (): Promise<Instrument[]> =>
-  withFallback("GetGlobalIndices", previewData.instruments.slice(0, 3) as unknown as Instrument[]);
+export const getGlobalIndices = (): Promise<Quote[]> =>
+  withFallback("GetGlobalIndices", previewData.quotes as unknown as Quote[]);
 
 export const getNews = (): Promise<NewsItem[]> =>
   withFallback("GetNews", previewData.news as unknown as NewsItem[]);
 
-export const getQuote = (instrumentId: string): Promise<Instrument> =>
-  withFallback("GetQuote", previewData.instruments[0] as unknown as Instrument, [{ instrumentId }]);
+export const getQuote = (instrumentId: string): Promise<Quote> =>
+  withFallback("GetQuote", previewData.quotes[0] as unknown as Quote, [{ instrumentId }]);
 
 export const getUserIndices = (): Promise<Instrument[]> =>
   withFallback("GetUserIndices", previewData.instruments.slice(0, 2) as unknown as Instrument[]);
@@ -193,8 +193,8 @@ export const removeUserIndex = (instrumentId: string): Promise<void> =>
 
 export const getSearchHistory = (): Promise<Instrument[]> =>
   withFallback("GetSearchHistory", [
-    { id: "h1", name: "161725", code: "161725", kind: "fund", price: "", change: "" },
-    { id: "h2", name: "600519", code: "600519", kind: "stock", price: "", change: "" },
+    { id: "h1", name: "161725", code: "161725", assetType: "fund", market: "sz", providerId: "eastmoney" },
+    { id: "h2", name: "600519", code: "600519", assetType: "stock", market: "sh", providerId: "eastmoney" },
   ]);
 
 // ---- 诊断 ----

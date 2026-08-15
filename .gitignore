@@ -1,4 +1,4 @@
-# Database (Sensitive Data)
+# 数据库
 *.db
 *.sqlite3
 *.db-journal
@@ -8,25 +8,26 @@
 .vscode/
 .idea/
 
-# Logs and temp
+# 日志与临时
 *.log
 tmp*/
 .tmp-brand/
 .playwright-mcp/
 
-# Build outputs
+# 构建产物
 build/bin/
 frontend/dist/
 frontend/*.tsbuildinfo
 frontend/wailsjs/
 
-# Node dependencies
+# Node 依赖
 node_modules/
 frontend/node_modules/
 
-# Agent tooling
+# Agent 工具
 .agents/
 .claude/
 .omo/
-.codegraph/
+.atomcode/
+.codegraph
 skills-lock.json

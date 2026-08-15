@@ -252,7 +252,7 @@ export const PlansPage = () => {
                     type="button"
                     className="button icon-button"
                     aria-label={p.status === "active" ? "暂停计划" : "恢复计划"}
-                    onClick={() => void (p.status === "active" ? pause(p.id, 0) : resume(p.id, 0))}
+                    onClick={() => void (p.status === "active" ? pause(p.id, p.version) : resume(p.id, p.version))}
                   >
                     {p.status === "active" ? <Pause size={16} /> : <Play size={16} />}
                   </button>
@@ -260,17 +260,17 @@ export const PlansPage = () => {
                     type="button"
                     className="button danger icon-button"
                     aria-label="删除计划"
-                    onClick={() => void remove(p.id, 0)}
+                    onClick={() => void remove(p.id, p.version)}
                   >
                     <Trash size={16} />
                   </button>
                 </div>
               </div>
-              <h2>{p.fund}</h2>
+              <h2>{p.fundName}</h2>
               <div className="list">
                 <div className="list-item">
                   <span>频率</span>
-                  <strong>{frequencyLabels[p.frequency ?? ""] ?? p.cadence}</strong>
+                  <strong>{frequencyLabels[p.frequency]}</strong>
                 </div>
                 <div className="list-item">
                   <span>每期金额</span>
@@ -278,7 +278,7 @@ export const PlansPage = () => {
                 </div>
                 <div className="list-item">
                   <span>执行</span>
-                  <strong>{cadenceLabel(p.frequency ?? "monthly", p.executionDay ?? 1)}</strong>
+                  <strong>{cadenceLabel(p.frequency, p.executionDay)}</strong>
                 </div>
               </div>
             </article>

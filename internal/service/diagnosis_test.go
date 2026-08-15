@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chiheng-app/chiheng/internal/domain"
+	"github.com/JimsZack/ChiHeng/internal/domain"
 )
 
 func TestComputeScore_whenStrongUptrend(t *testing.T) {

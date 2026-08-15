@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/chiheng-app/chiheng/internal/domain"
+	"github.com/JimsZack/ChiHeng/internal/domain"
 )
 
 var ErrNotFound = errors.New("not found")

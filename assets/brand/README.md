@@ -11,7 +11,7 @@ The originals in this directory are the only editable masters. Do not trace expo
 | `chiheng-splash.svg` | 1200×720 viewBox | launch splash master |
 | `chiheng-ui-icons.svg` | 24 square symbols | static/bootstrap status icons only |
 
-Keep application-icon padding, corner radius, gradient, and mark geometry unchanged. The tray assets must stay single color with transparent background. UI code uses Phosphor regular icons according to `DESIGN.md`; the sprite exists only for surfaces where the React icon library cannot load.
+Keep application-icon padding, corner radius, gradient, and mark geometry unchanged. The tray assets must stay single color with transparent background. UI code uses Phosphor regular icons according to `docs/DESIGN.md`; the sprite exists only for surfaces where the React icon library cannot load.
 
 Generated destinations:
 

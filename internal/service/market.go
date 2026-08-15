@@ -4,12 +4,12 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/chiheng-app/chiheng/internal/adapter"
-	"github.com/chiheng-app/chiheng/internal/adapter/eastmoney"
-	"github.com/chiheng-app/chiheng/internal/adapter/fundgz"
-	"github.com/chiheng-app/chiheng/internal/adapter/sina"
-	"github.com/chiheng-app/chiheng/internal/domain"
-	"github.com/chiheng-app/chiheng/internal/store"
+	"github.com/JimsZack/ChiHeng/internal/adapter"
+	"github.com/JimsZack/ChiHeng/internal/adapter/eastmoney"
+	"github.com/JimsZack/ChiHeng/internal/adapter/fundgz"
+	"github.com/JimsZack/ChiHeng/internal/adapter/sina"
+	"github.com/JimsZack/ChiHeng/internal/domain"
+	"github.com/JimsZack/ChiHeng/internal/store"
 )
 
 // Market 行情域：聚合新浪/东方财富/天天基金数据源，提供统一查询接口。

@@ -60,7 +60,7 @@ export const HoldingsPage = () => {
     0,
   );
   const totalProfit = holdings.reduce(
-    (sum, h) => sum + (parseFloat(h.profit.replace(/,/g, "")) || 0),
+    (sum, h) => sum + (parseFloat(h.cumulativePnl.replace(/,/g, "")) || 0),
     0,
   );
 
@@ -181,8 +181,8 @@ export const HoldingsPage = () => {
               {holdings.map((h) => (
                 <tr key={h.id}>
                   <td>
-                    <strong>{h.name}</strong>
-                    <div className="muted">{h.code}</div>
+                    <strong>{h.fundName}</strong>
+                    <div className="muted">{h.fundCode}</div>
                   </td>
                   <td>{h.shares}</td>
                   <td>{h.costNav}</td>
@@ -191,7 +191,7 @@ export const HoldingsPage = () => {
                   <td className={h.dailyChange.startsWith("+") ? "positive" : "negative"}>
                     {h.dailyChange}
                   </td>
-                  <td className={h.profit.startsWith("+") ? "positive" : "negative"}>{h.profit}</td>
+                  <td className={h.cumulativePnl.startsWith("+") ? "positive" : "negative"}>{h.cumulativePnl}</td>
                 </tr>
               ))}
             </tbody>
@@ -208,8 +208,8 @@ export const HoldingsPage = () => {
       <div className="grid three section">
         {holdings.map((h, index) => (
           <section className="card" key={h.id}>
-            <strong>{h.name}</strong>
-            <div className="muted">{h.code}</div>
+            <strong>{h.fundName}</strong>
+            <div className="muted">{h.fundCode}</div>
             <MiniChart values={[42 + index * 5, 55, 48, 67, 61, 72, 64, 76, 70, 82]} />
           </section>
         ))}

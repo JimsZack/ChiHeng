@@ -56,7 +56,7 @@ export const KnowledgePage = () => {
                   >
                     <span>
                       {n.title}
-                      <span className="muted"> · {n.time}</span>
+                      <span className="muted"> · {n.publishedAt}</span>
                     </span>
                     <ArrowSquareOut size={16} />
                   </a>

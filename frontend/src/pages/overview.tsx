@@ -102,10 +102,10 @@ export const OverviewPage = () => {
           >
             <div className="list">
               {indices.slice(0, 4).map((item) => (
-                <div className="list-item" key={item.id}>
+                <div className="list-item" key={item.instrument.id}>
                   <div>
-                    <strong>{item.name}</strong>
-                    <div className="muted">{item.code}</div>
+                    <strong>{item.instrument.name}</strong>
+                    <div className="muted">{item.instrument.code}</div>
                   </div>
                   <div className="quote">
                     <div>{item.price}</div>
@@ -140,7 +140,7 @@ export const OverviewPage = () => {
                 >
                   <div>
                     <span className="badge">{item.tag}</span> {item.title}
-                    <div className="muted">{item.time}</div>
+                    <div className="muted">{item.publishedAt}</div>
                   </div>
                   <ArrowSquareOut size={16} />
                 </a>

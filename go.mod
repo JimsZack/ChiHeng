@@ -1,4 +1,4 @@
-module github.com/chiheng-app/chiheng
+module github.com/JimsZack/ChiHeng
 
 go 1.25.0
 

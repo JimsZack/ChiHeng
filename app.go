@@ -8,14 +8,14 @@ import (
 	"strings"
 	"time"
 
-	"github.com/chiheng-app/chiheng/internal/adapter"
-	"github.com/chiheng-app/chiheng/internal/adapter/deepseek"
-	"github.com/chiheng-app/chiheng/internal/bindings"
-	"github.com/chiheng-app/chiheng/internal/config"
-	"github.com/chiheng-app/chiheng/internal/domain"
-	"github.com/chiheng-app/chiheng/internal/scheduler"
-	"github.com/chiheng-app/chiheng/internal/service"
-	"github.com/chiheng-app/chiheng/internal/store"
+	"github.com/JimsZack/ChiHeng/internal/adapter"
+	"github.com/JimsZack/ChiHeng/internal/adapter/deepseek"
+	"github.com/JimsZack/ChiHeng/internal/bindings"
+	"github.com/JimsZack/ChiHeng/internal/config"
+	"github.com/JimsZack/ChiHeng/internal/domain"
+	"github.com/JimsZack/ChiHeng/internal/scheduler"
+	"github.com/JimsZack/ChiHeng/internal/service"
+	"github.com/JimsZack/ChiHeng/internal/store"
 	"github.com/wailsapp/wails/v2/pkg/menu"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
@@ -227,34 +227,30 @@ func (a *App) DeleteHolding(meta bindings.RequestMeta, req bindings.IDRequest) b
 
 // PortfolioOverview 返回持仓总览（市值/盈亏/分布）。
 func (a *App) PortfolioOverview(meta bindings.RequestMeta) bindings.PortfolioResponse {
-	holdings, err := a.portfolio.List(a.ctx)
+	overview, err := a.portfolio.Overview(a.ctx)
 	if err != nil {
 		return bindings.PortfolioResponse{Meta: responseMeta(meta), Error: toAPIError(err)}
 	}
-	overview := bindings.PortfolioOverviewData{
-		TotalMarketValue: "0",
-		TotalCost:        "0",
-		DailyPnL:         "0",
-		CumulativePnL:    "0",
-		CumulativeRate:   "0",
-		Allocations:      []bindings.Allocation{},
-		Holdings:         []bindings.HoldingData{},
+	data := bindings.PortfolioOverviewData{
+		TotalMarketValue: domain.FormatDecimal(overview.TotalMarketValue),
+		TotalCost:        domain.FormatDecimal(overview.TotalCost),
+		DailyPnL:         domain.FormatDecimal(overview.DailyPnL),
+		CumulativePnL:    domain.FormatDecimal(overview.CumulativePnL),
+		CumulativeRate:   domain.FormatDecimal(overview.CumulativeRate),
+		Allocations:      make([]bindings.Allocation, 0, len(overview.Allocations)),
+		Holdings:         make([]bindings.HoldingData, 0, len(overview.Holdings)),
 	}
-	var totalValue, totalCost int64
-	for _, h := range holdings {
-		value := h.Shares * h.CurrentNAV / domain.Scale
-		cost := h.Shares * h.CostNAV / domain.Scale
-		totalValue += value
-		totalCost += cost
-		overview.Holdings = append(overview.Holdings, toHoldingData(h))
+	for _, alloc := range overview.Allocations {
+		data.Allocations = append(data.Allocations, bindings.Allocation{
+			HoldingID: alloc.HoldingID,
+			Name:      alloc.Name,
+			Value:     domain.FormatDecimal(alloc.Value),
+		})
 	}
-	overview.TotalMarketValue = domain.FormatDecimal(totalValue)
-	overview.TotalCost = domain.FormatDecimal(totalCost)
-	if totalCost > 0 {
-		overview.CumulativeRate = domain.FormatDecimal((totalValue-totalCost)*10000/totalCost)
+	for _, h := range overview.Holdings {
+		data.Holdings = append(data.Holdings, toHoldingData(h))
 	}
-	overview.CumulativePnL = domain.FormatDecimal(totalValue - totalCost)
-	return bindings.PortfolioResponse{Meta: responseMeta(meta), Data: &overview, Error: nil}
+	return bindings.PortfolioResponse{Meta: responseMeta(meta), Data: &data, Error: nil}
 }
 
 // AssetHistory 资产历史曲线。

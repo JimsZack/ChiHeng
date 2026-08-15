@@ -4,8 +4,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/chiheng-app/chiheng/internal/domain"
-	"github.com/chiheng-app/chiheng/internal/store"
+	"github.com/JimsZack/ChiHeng/internal/domain"
+	"github.com/JimsZack/ChiHeng/internal/store"
 )
 
 func Test_Buy_when_HoldingExists(t *testing.T) {

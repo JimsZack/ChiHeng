@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/chiheng-app/chiheng/internal/domain"
-	"github.com/chiheng-app/chiheng/internal/store"
+	"github.com/JimsZack/ChiHeng/internal/domain"
+	"github.com/JimsZack/ChiHeng/internal/store"
 )
 
 type Portfolio struct { store *store.Store }
@@ -63,6 +63,57 @@ func (s *Portfolio) Correct(ctx context.Context, holding domain.Holding, expecte
 }
 
 func (s *Portfolio) Delete(ctx context.Context, id string, expected int64) error { return s.store.DeleteHolding(ctx, id, expected) }
+
+// Overview 持仓总览聚合：总市值/总成本/当日盈亏/累计盈亏/资产分布。
+// 金额均为微单位（domain.Scale），由展示层格式化。
+type Overview struct {
+	TotalMarketValue int64
+	TotalCost        int64
+	DailyPnL         int64
+	CumulativePnL    int64
+	CumulativeRate   int64 // 万分比（保留与原实现一致的口径）
+	Allocations      []Allocation
+	Holdings         []domain.Holding
+}
+
+// Allocation 单只持仓的资产分布。
+type Allocation struct {
+	HoldingID string
+	Name      string
+	Value     int64 // 持仓市值（微单位）
+}
+
+func (s *Portfolio) Overview(ctx context.Context) (Overview, error) {
+	holdings, err := s.store.ListHoldings(ctx)
+	if err != nil {
+		return Overview{}, err
+	}
+	var totalValue, totalCost, dailyPnL int64
+	for _, h := range holdings {
+		totalValue += h.Shares * h.CurrentNAV / domain.Scale
+		totalCost += h.Shares * h.CostNAV / domain.Scale
+		dailyPnL += h.Shares * h.DailyChangeBP * h.CurrentNAV / domain.Scale / 10000
+	}
+	overview := Overview{
+		TotalMarketValue: totalValue,
+		TotalCost:        totalCost,
+		DailyPnL:         dailyPnL,
+		CumulativePnL:    totalValue - totalCost,
+		Allocations:      make([]Allocation, 0, len(holdings)),
+		Holdings:         holdings,
+	}
+	if totalCost > 0 {
+		overview.CumulativeRate = (totalValue - totalCost) * 10000 / totalCost
+	}
+	for _, h := range holdings {
+		overview.Allocations = append(overview.Allocations, Allocation{
+			HoldingID: h.ID,
+			Name:      h.FundName,
+			Value:     h.Shares * h.CurrentNAV / domain.Scale,
+		})
+	}
+	return overview, nil
+}
 
 func newID(prefix string) string {
 	value := make([]byte, 12)
